@@ -1,0 +1,54 @@
+#include <exception>
+
+#include <boost/shared_ptr.hpp>
+
+#include "OGRE/OgreRoot.h"
+#include "OGRE/OgreRenderSystem.h"
+#include "OGRE/OgreRenderWindow.h"
+
+#include "OgreOctreePlugin.h"
+
+using namespace std;
+using namespace Ogre;
+
+int main(int argc, char **argv) {
+    const string render_tex_rsrc_name_ = "RenderTexture Resources";
+
+    boost::shared_ptr<Root> root_;
+
+    SceneManager *scene_mgr_;
+    ResourceGroupManager *resource_mgr_;
+
+    root_.reset(new Root("", "", "generate_random.log"));
+
+    // Load plugins
+    root_->loadPlugin("/usr/lib/x86_64-linux-gnu/OGRE-1.9.0/Plugin_OctreeZone.so");
+    root_->loadPlugin("/usr/lib/x86_64-linux-gnu/OGRE-1.9.0/RenderSystem_GL.so");
+
+    RenderSystemList render_systems = root_->getAvailableRenderers();
+    if (!render_systems.size()) {
+        throw runtime_error("No Render Systems found.");
+    }
+
+    RenderSystem *render_system = render_systems[0];
+    root_->setRenderSystem(render_system);
+
+    // Why do we do this?
+    render_system = root_->getRenderSystem();
+
+    root_->initialise(false, "");
+
+    scene_mgr_ = root_->createSceneManager(Ogre::ST_GENERIC);
+
+    resource_mgr_ = ResourceGroupManager::getSingletonPtr();
+    resource_mgr_->createResourceGroup(render_tex_rsrc_name_);
+    resource_mgr_->initialiseResourceGroup(render_tex_rsrc_name_);
+
+    RenderWindow *window = root_->createRenderWindow("Window",
+                                                     1, 1,
+                                                     false,
+                                                     NULL);
+    window->setVisible(false);
+
+    return 0;
+}
