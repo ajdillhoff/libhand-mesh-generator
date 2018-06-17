@@ -34,4 +34,4 @@
 # logs
 *.log
 
-bin/
+bin
