@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
 
     pose_sample.depth_buffer.convertTo(test, CV_8UC1, 255 / (max - min), -min);
 
-    cout << test << endl;
+    /* cout << test << endl; */
 
     cv::Mat cm_depth_buffer;
     cv::applyColorMap(pose_sample.depth_buffer, cm_depth_buffer, cv::COLORMAP_AUTUMN);
