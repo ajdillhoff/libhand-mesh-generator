@@ -31,7 +31,7 @@ void PoseGenerator::GeneratePose() {
     /* FileDialog dialog; */
     /* dialog.SetTitle("Please select a scene spec file"); */
     /* string file_name = dialog.Open(); */
-    string file_name = "/home/alex/dev/projects/libhand-public/hand_model_no_arm/scene_spec.yml";
+    string file_name = "/home/ajdillhoff/dev/projects/libhand-public/hand_model_no_arm/scene_spec.yml";
     /* string file_name = "/home/alex/dev/examples/libhand/hand_model/scene_spec.yml"; */
 
     // Process file
@@ -69,9 +69,6 @@ void PoseGenerator::GeneratePose() {
     // Set the camera_spec, controls the perspective we view the hand from
     hand_renderer_.set_camera_spec(camera_spec);
 
-    // Render the hand
-    hand_renderer_.RenderHand();
-
     /* // Get an openCV matrix of the rendered hand */
     /* cv::Mat pic = hand_renderer_.pixel_buffer_cv(); */
 
@@ -80,16 +77,19 @@ void PoseGenerator::GeneratePose() {
     /* cv::waitKey(); */
 
     // TODO: Only starting out with bends for now, skip the last 3 joints
-    for (int i = 0; i < hand_pose.num_joints() - 3; i++) {
+    /* for (int i = 0; i < hand_pose.num_joints() - 3; i++) { */
         // Generate a random number between 0 and 2PI
-        float r = -(M_PI / 2) * static_cast<float>(rand()) / (static_cast<float>(RAND_MAX + 1.));
+        float r = -(M_PI / 4) * static_cast<float>(rand()) / (static_cast<float>(RAND_MAX + 1.));
 
         // Set the values
-        hand_pose.bend(i) = r;
-    }
+        hand_pose.bend(9) = r;
+    /* } */
 
     // Apply the hand pose
     hand_renderer_.SetHandPose(hand_pose);
+
+    // Render the hand
+    hand_renderer_.RenderHand();
 }
 
 // Returns a sample based on the currently generated pose.

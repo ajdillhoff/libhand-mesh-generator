@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
     /* cout << test << endl; */
 
     cv::Mat cm_depth_buffer;
-    cv::applyColorMap(pose_sample.depth_buffer, cm_depth_buffer, cv::COLORMAP_AUTUMN);
+    /* cv::applyColorMap(pose_sample.depth_buffer, cm_depth_buffer, cv::COLORMAP_AUTUMN); */
 
     cv::imshow(win_name, test);
     cv::waitKey();
