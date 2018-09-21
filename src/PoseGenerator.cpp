@@ -25,7 +25,7 @@ PoseGenerator::~PoseGenerator() {}
 
 // Returns a pose generated based on the current generator parameters.
 void PoseGenerator::GeneratePose() {
-    hand_renderer_.Setup(kDefaultWidth, kDefaultHeight);
+    hand_renderer_.Setup(1024, 768);
 
     // Load scene spec file
     /* FileDialog dialog; */
@@ -58,7 +58,7 @@ void PoseGenerator::GeneratePose() {
     uniform_real_distribution<float> gen(-1, 1);
     float phi = M_PI * gen(rng);
 
-    gen = uniform_real_distribution<float>(-1, 0);
+    gen = uniform_real_distribution<float>(0, 1);
     float theta = M_PI * gen(rng);
     float tilt = M_PI * -gen(rng);
 
@@ -77,13 +77,12 @@ void PoseGenerator::GeneratePose() {
     /* cv::waitKey(); */
 
     // TODO: Only starting out with bends for now, skip the last 3 joints
-    /* for (int i = 0; i < hand_pose.num_joints() - 3; i++) { */
+    for (int i = 3; i < hand_pose.num_joints() - 3; i++) {
         // Generate a random number between 0 and 2PI
-        float r = -(M_PI / 4) * static_cast<float>(rand()) / (static_cast<float>(RAND_MAX + 1.));
-
         // Set the values
-        hand_pose.bend(9) = r;
-    /* } */
+        hand_pose.bend(i) = -(M_PI / 4) * gen(rng);
+        /* hand_pose.bend(10) = -(M_PI / 4) * gen(rng); */
+    }
 
     // Apply the hand pose
     hand_renderer_.SetHandPose(hand_pose);
