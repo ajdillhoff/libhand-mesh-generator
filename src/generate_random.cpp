@@ -1,5 +1,6 @@
 #include <memory>
 #include <iostream>
+#include <fstream>
 
 #include "opencv2/opencv.hpp"
 #include "PoseGenerator.h"
@@ -32,13 +33,19 @@ int main(int argc, char **argv) {
 
     pose_sample.depth_buffer.convertTo(test, CV_8UC1, 255 / (max - min), -min);
 
-    /* cout << test << endl; */
-
-    cv::Mat cm_depth_buffer;
-    /* cv::applyColorMap(pose_sample.depth_buffer, cm_depth_buffer, cv::COLORMAP_AUTUMN); */
-
     cv::imshow(win_name, test);
     cv::waitKey();
+
+    // Write to file
+    ofstream file;
+    file.open("../samples/target.txt");
+    for (const auto &p : pose_sample.joint_position_map) {
+        file << p.first << " " << p.second[0] << " " << p.second[1] << " " << p.second[2] << std::endl;
+    }
+    file.close();
+    cv::imwrite("../samples/test.png", test);
+
+    std::cout << "Files written." << std::endl;
 
     return 0;
 }
