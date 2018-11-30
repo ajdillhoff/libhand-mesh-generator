@@ -1,15 +1,19 @@
 CC := g++
 SRCDIR := src
 BUILDDIR := build
-TARGET := bin/generate_random
+TARGET1 := bin/generate_random
+TARGET2 := bin/viewer
 
 # Custom library locations
 LIBHAND_SRCDIR := /home/ajdillhoff/dev/projects/libhand-public/hand_cpp/source/
 LIBHAND_LIBDIR := /home/ajdillhoff/dev/projects/libhand-public/hand_cpp/dist/
 
 SRCEXT := cpp
-SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
-OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
+# SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
+TARGET1_SOURCES := $(SRCDIR)/PoseGenerator.cpp $(SRCDIR)/generate_random.$(SRCEXT)
+TARGET2_SOURCES := $(SRCDIR)/PoseGenerator.cpp $(SRCDIR)/viewer.$(SRCEXT)
+TARGET1_OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(TARGET1_SOURCES:.$(SRCEXT)=.o))
+TARGET2_OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(TARGET2_SOURCES:.$(SRCEXT)=.o))
 CFLAGS := -g -std=c++11
 LIBHAND_INCLUDE := -I$(LIBHAND_SRCDIR)
 LIBHAND_LIBRARIES := -L$(LIBHAND_LIBDIR) -Wl,-R$(LIBHAND_LIBDIR) -lhand_renderer -lhand_utils
@@ -21,9 +25,15 @@ OGRE_LIBRARIES := -L/usr/lib/x86_64-linux-gnu/OGRE-1.9.0 -Wl,-R/usr/lib/x86_64-l
 LIB := -pthread -Llib -lboost_system -lOgreMain $(OGRE_LIBRARIES) $(LIBHAND_LIBRARIES) -lGL -lGLU -lglut `pkg-config opencv --cflags --libs`
 INC := -Iinclude $(OGRE_INCLUDES) $(LIBHAND_INCLUDE)
 
-$(TARGET): $(OBJECTS)
+$(TARGET1): $(TARGET1_OBJECTS)
 	@echo " Linking..."
-	@echo " $(CC) $^ -o $(TARGET) $(LIB)"; $(CC) $^ -o $(TARGET) $(LIB)
+	@echo " $(CC) $^ -o $(TARGET1) $(LIB)"; $(CC) $^ -o $(TARGET1) $(LIB)
+
+$(TARGET2): $(TARGET2_OBJECTS)
+	@echo " Linking..."
+	@echo " $(CC) $^ -o $(TARGET2) $(LIB)"; $(CC) $^ -o $(TARGET2) $(LIB)
+
+all: $(TARGET1) $(TARGET2)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(BUILDDIR)
@@ -31,4 +41,4 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 
 clean:
 	@echo " Cleaning...";
-	@echo " $(RM) -r $(BUILDDIR) $(TARGET)"; $(RM) -r $(BUILDDIR) $(TARGET)
+	@echo " $(RM) -r $(BUILDDIR) $(TARGET1) $(TARGET2)"; $(RM) -r $(BUILDDIR) $(TARGET1) $(TARGET2)

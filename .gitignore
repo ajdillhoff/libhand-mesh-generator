@@ -36,3 +36,6 @@
 
 bin
 samples
+build
+train
+test
