@@ -12,8 +12,8 @@ using namespace std;
 int main(int argc, char **argv) {
     unique_ptr<PoseGenerator> p_gen(new PoseGenerator());
     ofstream file;
-    file.open("../train/targets.txt");
-    int num_samples = 5000;
+    file.open("../test/targets.txt");
+    int num_samples = 5;
 
     p_gen->Setup();
 
@@ -32,8 +32,8 @@ int main(int argc, char **argv) {
 
         pose_sample.depth_buffer.convertTo(test, CV_8UC1, 255 / (max - min), -min);
 
-        boost::format depth_fmt("../train/depth/%04d.png");
-        boost::format color_fmt("../train/color/%04d.png");
+        boost::format depth_fmt("../test/depth/%04d.png");
+        boost::format color_fmt("../test/color/%04d.png");
         depth_fmt % i;
         color_fmt % i;
         cv::imwrite(depth_fmt.str(), test);
