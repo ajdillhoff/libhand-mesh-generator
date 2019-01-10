@@ -28,7 +28,7 @@ void PoseGenerator::Setup() {
     /* FileDialog dialog; */
     /* dialog.SetTitle("Please select a scene spec file"); */
     /* string file_name = dialog.Open(); */
-    string file_name = "/home/ajdillhoff/dev/projects/libhand-public/fingers/small/scene_spec.yml";
+    string file_name = "/home/ajdillhoff/dev/projects/libhand-public/fingers/index/scene_spec.yml";
     /* string file_name = "/home/alex/dev/examples/libhand/hand_model/scene_spec.yml"; */
 
     // Process file
