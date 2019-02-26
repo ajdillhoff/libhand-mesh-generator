@@ -28,8 +28,9 @@ void PoseGenerator::Setup() {
     /* FileDialog dialog; */
     /* dialog.SetTitle("Please select a scene spec file"); */
     /* string file_name = dialog.Open(); */
-    string file_name = "/home/ajdillhoff/dev/projects/libhand-public/fingers/index/scene_spec.yml";
+    /* string file_name = "/home/ajdillhoff/dev/projects/libhand-public/fingers/index/scene_spec.yml"; */
     /* string file_name = "/home/alex/dev/examples/libhand/hand_model/scene_spec.yml"; */
+    string file_name = "/home/ajdillhoff/dev/projects/libhand-public/sphere/scene_spec.yml";
 
     // Process file
     SceneSpec scene_spec(file_name);
@@ -58,8 +59,8 @@ void PoseGenerator::GeneratePose() {
     /* hand_renderer_.set_camera_spec(camera_spec); */
 
     // Set the values
-    hand_pose_.side(0) = (M_PI / 2) * gen(rng_);
-    hand_pose_.twist(0) = (M_PI / 2) * gen(rng_);
+    /* hand_pose_.side(0) = (M_PI / 2) * gen(rng_); */
+    /* hand_pose_.twist(0) = (M_PI / 2) * gen(rng_); */
     /* gen = uniform_real_distribution<float>(0, 1); */
     /* hand_pose_.bend(1) = -(M_PI / 2) * gen(rng_); */
 
