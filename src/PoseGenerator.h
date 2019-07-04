@@ -31,7 +31,7 @@ class PoseGenerator {
     void Setup();
 
     // Method to generate random hand pose
-    void GeneratePose();
+    void GeneratePose(int);
 
     // Get sample based on the currently generated pose
     PoseSample GetSample();

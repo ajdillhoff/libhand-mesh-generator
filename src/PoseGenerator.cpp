@@ -28,9 +28,10 @@ void PoseGenerator::Setup() {
     /* FileDialog dialog; */
     /* dialog.SetTitle("Please select a scene spec file"); */
     /* string file_name = dialog.Open(); */
-    /* string file_name = "/home/ajdillhoff/dev/projects/libhand-public/fingers/index/scene_spec.yml"; */
-    /* string file_name = "/home/alex/dev/examples/libhand/hand_model/scene_spec.yml"; */
-    string file_name = "/home/ajdillhoff/dev/projects/libhand-public/sphere/scene_spec.yml";
+    string file_name = "/home/ajdillhoff/dev/projects/libhand-public/fingers/index/scene_spec.yml";
+    /* string file_name = "/home/ajdillhoff/dev/projects/libhand-public/hand2j/scene_spec.yml"; */
+    /* string file_name = "/home/ajdillhoff/dev/projects/libhand-public/cylinderv3/scene_spec.yml"; */
+    /* string file_name = "/home/ajdillhoff/dev/projects/libhand-public/hand_model_no_wrist/rhd/scene_spec.yml"; */
 
     // Process file
     SceneSpec scene_spec(file_name);
@@ -43,26 +44,24 @@ void PoseGenerator::Setup() {
 }
 
 // Returns a pose generated based on the current generator parameters.
-void PoseGenerator::GeneratePose() {
+void PoseGenerator::GeneratePose(int i) {
 
-    uniform_real_distribution<float> gen(-1, 1);
-    /* float phi = (M_PI / 4) * gen(rng); */
-    /* float theta = M_PI * -gen(rng); */
-    /* float tilt = (M_PI / 2) * -gen(rng); */
+    auto rand = std::bind(std::uniform_real_distribution<float>{0, 1},
+            std::default_random_engine{std::random_device()()});
+    auto gen = uniform_int_distribution<int>(0, 3);
 
-    /* HandCameraSpec camera_spec(distance_to_camera_); */
-    /* camera_spec.theta = theta; */
-    /* camera_spec.phi = phi; */
-    /* camera_spec.tilt = 0.0; */
-
-    // Set the camera_spec, controls the perspective we view the hand from
-    /* hand_renderer_.set_camera_spec(camera_spec); */
 
     // Set the values
-    /* hand_pose_.side(0) = (M_PI / 2) * gen(rng_); */
-    /* hand_pose_.twist(0) = (M_PI / 2) * gen(rng_); */
-    /* gen = uniform_real_distribution<float>(0, 1); */
-    /* hand_pose_.bend(1) = -(M_PI / 2) * gen(rng_); */
+    auto random_integer = gen(rng_);
+    hand_pose_.side(0) = random_integer * 90.0 * (M_PI / 180);
+    hand_pose_.side(1) = M_PI / 6;
+    /* if (r > 0.66) { */
+    /*     hand_pose_.side(0) = 90.0 * (M_PI / 180); */
+    /* } else if (r > 0.33 && r <= 0.66) { */
+    /*     hand_pose_.side(0) = 45.0 * (M_PI / 180); */
+    /* } else { */
+    /*     hand_pose_.side(0) = 0.0; */
+    /* } */
 
     // Apply the hand pose
     hand_renderer_.SetHandPose(hand_pose_);

@@ -12,16 +12,16 @@ using namespace std;
 int main(int argc, char **argv) {
     unique_ptr<PoseGenerator> p_gen(new PoseGenerator());
     ofstream file;
-    file.open("../sphere/train/targets.txt");
-    int num_samples = 1;
+    file.open("../finger_simple/pretrain/targets.txt");
+    int num_samples = 1000;
 
     p_gen->Setup();
 
     for (int i = 0; i < num_samples; i++) {
-        p_gen->GeneratePose();
+        p_gen->GeneratePose(i - 180);
         PoseGenerator::PoseSample pose_sample = p_gen->GetSample();
 
-        // Testing cv::setTo to get rid of the inf values
+        // Testing cv::setTo to get rid of the inf testues
         pose_sample.depth_buffer.setTo(0, pose_sample.depth_buffer == std::numeric_limits<float>::infinity());
 
         cv::Mat test;
@@ -42,8 +42,8 @@ int main(int argc, char **argv) {
 
         pose_sample.depth_buffer.convertTo(test, CV_8UC1, scale, b);
 
-        boost::format depth_fmt("../sphere/train/depth/%04d.png");
-        boost::format color_fmt("../sphere/train/color/%04d.png");
+        boost::format depth_fmt("../finger_simple/pretrain/depth/%04d.png");
+        boost::format color_fmt("../finger_simple/pretrain/color/%04d.png");
         depth_fmt % i;
         color_fmt % i;
         cv::imwrite(depth_fmt.str(), test);
