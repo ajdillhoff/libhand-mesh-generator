@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 
+#include <boost/filesystem.hpp>
 #include <boost/format.hpp>
 #include "opencv2/opencv.hpp"
 #include "PoseGenerator.h"
@@ -12,8 +13,10 @@ using namespace std;
 int main(int argc, char **argv) {
     unique_ptr<PoseGenerator> p_gen(new PoseGenerator());
     ofstream file;
-    file.open("../finger_simple/pretrain/targets.txt");
-    int num_samples = 1000;
+    boost::filesystem::path dir("../hand/train/");
+    boost::filesystem::create_directory(dir);
+    file.open("../hand/train/targets.txt");
+    int num_samples = 100000;
 
     p_gen->Setup();
 
@@ -33,17 +36,18 @@ int main(int argc, char **argv) {
         double min_t;
         double max_t;
         cv::minMaxLoc(pose_sample.depth_buffer, &min_t, &max_t, 0, 0, mask);
-        cout << "min_t = " << min_t << ", max_t = " << max_t << endl;
-
-        cout << "min = " << min << ", max = " << max << endl;
 
         double scale = 255 / (max - min);
         double b = -min * scale;
 
         pose_sample.depth_buffer.convertTo(test, CV_8UC1, scale, b);
 
-        boost::format depth_fmt("../finger_simple/pretrain/depth/%04d.png");
-        boost::format color_fmt("../finger_simple/pretrain/color/%04d.png");
+        boost::filesystem::path depth_dir("../hand/train/depth/");
+        boost::filesystem::create_directory(depth_dir);
+        boost::filesystem::path color_dir("../hand/train/color/");
+        boost::filesystem::create_directory(color_dir);
+        boost::format depth_fmt("../hand/train/depth/%d.png");
+        boost::format color_fmt("../hand/train/color/%d.png");
         depth_fmt % i;
         color_fmt % i;
         cv::imwrite(depth_fmt.str(), test);
