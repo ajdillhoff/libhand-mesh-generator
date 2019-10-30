@@ -8,6 +8,7 @@
 
 #include "opencv2/opencv.hpp"
 #include "OGRE/OgreVector3.h"
+#include "OGRE/OgreMatrix3.h"
 #include "hand_renderer.h"
 #include "scene_spec.h"
 
@@ -28,10 +29,8 @@ void PoseGenerator::Setup() {
     /* FileDialog dialog; */
     /* dialog.SetTitle("Please select a scene spec file"); */
     /* string file_name = dialog.Open(); */
-    //string file_name = "/home/alex/dev/projects/libhand-public/fingers/index/scene_spec.yml";
-    //string file_name = "/home/alex/dev/projects/libhand-public/hand2j/scene_spec.yml";
-    /* string file_name = "/home/ajdillhoff/dev/projects/libhand-public/cylinderv3/scene_spec.yml"; */
-    string file_name = "/home/alex/dev/projects/libhand-public/hand_model_no_wrist/rhd/scene_spec.yml";
+    //string file_name = "/home/alex/dev/projects/libhand-public/hand_model_no_wrist/rhd/scene_spec.yml";
+    string file_name = "/home/alex/dev/projects/libhand-public/hand_model_no_arm/scene_spec.yml";
 
     // Process file
     SceneSpec scene_spec(file_name);
@@ -41,6 +40,8 @@ void PoseGenerator::Setup() {
 
     // HandPose object that we will use to generate random poses
     hand_pose_ = FullHandPose(scene_spec.num_bones());
+
+    Matrix3 proj = hand_renderer_.camera_spec().GetRotMatrix();
 }
 
 // Returns a pose generated based on the current generator parameters.
@@ -54,32 +55,49 @@ void PoseGenerator::GeneratePose(int i) {
 
     // Set the values
     auto random_integer = gen(rng_);
-    hand_pose_.side(0) = rand2() * (M_PI / 2);
-    hand_pose_.twist(0) = rand2() * (M_PI / 6);
-    hand_pose_.bend(0) = rand() * (M_PI / 6);
-    hand_pose_.bend(1) = rand() * (M_PI / 4);
-    hand_pose_.bend(2) = rand() * (M_PI / 4);
-    hand_pose_.bend(3) = rand() * (M_PI / 4);
-    hand_pose_.bend(4) = rand() * (M_PI / 4);
-    hand_pose_.bend(5) = rand() * (M_PI / 4);
-    hand_pose_.bend(6) = rand() * (M_PI / 4);
-    hand_pose_.bend(7) = rand() * (M_PI / 4);
-    hand_pose_.bend(8) = rand() * (M_PI / 4);
-    hand_pose_.side(9) = rand() * -(M_PI / 6);
-    hand_pose_.bend(10) = rand() * (M_PI / 4);
-    hand_pose_.bend(11) = rand() * (M_PI / 4);
-    hand_pose_.bend(12) = rand() * (M_PI / 6);
-    hand_pose_.bend(13) = rand2() * (M_PI/ 10);
-    hand_pose_.side(14) = rand() * (M_PI / 4);
-    hand_pose_.side(15) = rand() * (M_PI / 4);
+
+    // carpals
+    hand_pose_.side(16) = rand2() * (M_PI / 2);
+    hand_pose_.twist(16) = rand2() * (M_PI / 6);
+    hand_pose_.bend(16) = rand() * -(M_PI / 3);
+
+    // metacarpals
+    hand_pose_.bend(15) = rand2() * (M_PI / 6);
+    hand_pose_.side(15) = rand2() * (M_PI / 12);
+
+    // pinky
+    hand_pose_.bend(0) = rand() * -(M_PI / 4);
+    hand_pose_.bend(1) = rand() * -(M_PI / 4);
+    hand_pose_.bend(2) = rand() * -(M_PI / 6);
+
+    // ringer finger
+    hand_pose_.bend(3) = rand() * -(M_PI / 4);
+    hand_pose_.bend(4) = rand() * -(M_PI / 4);
+    hand_pose_.bend(5) = rand() * -(M_PI / 6);
+
+    // middle finger
+    hand_pose_.bend(6) = rand() * -(M_PI / 4);
+    hand_pose_.bend(7) = rand() * -(M_PI / 4);
+    hand_pose_.bend(8) = rand() * -(M_PI / 6);
+
+    // index finger
+    hand_pose_.bend(9) = rand() * -(M_PI / 6);
+    hand_pose_.bend(10) = rand() * -(M_PI / 4);
+    hand_pose_.bend(11) = rand() * -(M_PI / 6);
+
+    // thumb
+    hand_pose_.bend(12) = rand() * -(M_PI / 4);
+    hand_pose_.bend(13) = rand2() * -(M_PI/ 12);
+    //hand_pose_.side(14) = rand() * (M_PI / 4);
+    //hand_pose_.side(15) = rand() * (M_PI / 4);
 
     // Apply the hand pose
     hand_renderer_.SetHandPose(hand_pose_);
 
     // Position test
-    float x_offset = rand2();
-    float y_offset = rand2();
-    float z_offset = -1.75 + rand2() * 0.5;
+    float x_offset = rand2() * 0.1;
+    float y_offset = 0.1 + rand2() * 0.1;
+    float z_offset = -0.25 + rand2() * 0.25;
     Ogre::Vector3 v(x_offset, y_offset, z_offset);
     hand_renderer_.SetHandPosition(v);
 

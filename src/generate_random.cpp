@@ -13,10 +13,10 @@ using namespace std;
 int main(int argc, char **argv) {
     unique_ptr<PoseGenerator> p_gen(new PoseGenerator());
     ofstream file;
-    boost::filesystem::path dir("../hand/train/");
+    boost::filesystem::path dir("../nyu_synth/train/");
     boost::filesystem::create_directory(dir);
-    file.open("../hand/train/targets.txt");
-    int num_samples = 100000;
+    file.open("../nyu_synth/train/targets.txt");
+    int num_samples = 10000;
 
     p_gen->Setup();
 
@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
 
         cv::Mat test;
 
-        double min = 0.5;
+        double min = 0.1;
         double max = 8.0;
         cv::Mat mask = pose_sample.depth_buffer != 0;
 
@@ -37,17 +37,18 @@ int main(int argc, char **argv) {
         double max_t;
         cv::minMaxLoc(pose_sample.depth_buffer, &min_t, &max_t, 0, 0, mask);
 
-        double scale = 255 / (max - min);
-        double b = -min * scale;
+        //double scale = 255 / (max - min);
+        //double b = -min * scale;
 
-        pose_sample.depth_buffer.convertTo(test, CV_8UC1, scale, b);
+        //pose_sample.depth_buffer.convertTo(test, CV_8UC1, scale, b);
+        pose_sample.depth_buffer.convertTo(test, CV_16UC1, 1000.0);
 
-        boost::filesystem::path depth_dir("../hand/train/depth/");
+        boost::filesystem::path depth_dir("../nyu_synth/train/depth/");
         boost::filesystem::create_directory(depth_dir);
-        boost::filesystem::path color_dir("../hand/train/color/");
+        boost::filesystem::path color_dir("../nyu_synth/train/color/");
         boost::filesystem::create_directory(color_dir);
-        boost::format depth_fmt("../hand/train/depth/%d.png");
-        boost::format color_fmt("../hand/train/color/%d.png");
+        boost::format depth_fmt("../nyu_synth/train/depth/%d.png");
+        boost::format color_fmt("../nyu_synth/train/color/%d.png");
         depth_fmt % i;
         color_fmt % i;
         cv::imwrite(depth_fmt.str(), test);
@@ -55,7 +56,7 @@ int main(int argc, char **argv) {
 
         // Write annotations to file
         for (const auto &p : pose_sample.joint_position_map) {
-            file << p.first << " " << p.second[0] << " " << p.second[1] << " " << p.second[2] << std::endl;
+            file << p.first << " " << p.second[0] << " " << p.second[1] << " " << p.second[2] * -1000.0 << std::endl;
         }
 
         cout << depth_fmt.str() << " written." << endl;
