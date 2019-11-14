@@ -9,6 +9,8 @@
 #include "hand_pose.h"
 #include "OGRE/OgreVector3.h"
 
+#include "PoseConfig.h"
+
 // Generates random hand poses. Meshes, keybpoints, and depth images can be
 // generated from the random poses.
 class PoseGenerator {
@@ -32,6 +34,7 @@ class PoseGenerator {
 
     // Method to generate random hand pose
     void GeneratePose(int);
+    void GeneratePose(unique_ptr<PoseParameters>);
 
     // Get sample based on the currently generated pose
     PoseSample GetSample();
@@ -46,7 +49,6 @@ class PoseGenerator {
     // - path to save generated data
 
   private:
-
     float distance_to_camera_;
     libhand::HandRenderer hand_renderer_;
     int vertex_count_;

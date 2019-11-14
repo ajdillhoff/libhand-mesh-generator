@@ -1,6 +1,7 @@
 CC := g++
 SRCDIR := src
 BUILDDIR := build
+INCLUDEDIR := include
 TARGET1 := bin/generate_random
 TARGET2 := bin/viewer
 
@@ -10,7 +11,7 @@ LIBHAND_LIBDIR := /home/alex/dev/projects/libhand-public/hand_cpp/build/source/
 
 SRCEXT := cpp
 # SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
-TARGET1_SOURCES := $(SRCDIR)/PoseGenerator.cpp $(SRCDIR)/generate_random.$(SRCEXT)
+TARGET1_SOURCES := $(SRCDIR)/PoseGenerator.cpp $(SRCDIR)/PoseConfig.cpp $(SRCDIR)/generate_random.$(SRCEXT)
 TARGET2_SOURCES := $(SRCDIR)/PoseGenerator.cpp $(SRCDIR)/viewer.$(SRCEXT)
 TARGET1_OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(TARGET1_SOURCES:.$(SRCEXT)=.o))
 TARGET2_OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(TARGET2_SOURCES:.$(SRCEXT)=.o))

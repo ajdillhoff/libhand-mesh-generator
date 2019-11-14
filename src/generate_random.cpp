@@ -7,21 +7,23 @@
 #include <boost/format.hpp>
 #include "opencv2/opencv.hpp"
 #include "PoseGenerator.h"
+#include "PoseConfig.h"
 
 using namespace std;
 
 int main(int argc, char **argv) {
     unique_ptr<PoseGenerator> p_gen(new PoseGenerator());
     ofstream file;
-    boost::filesystem::path dir("../nyu_synth/train/");
+    boost::filesystem::path dir("../nyu_synth_256k/val/");
     boost::filesystem::create_directory(dir);
-    file.open("../nyu_synth/train/targets.txt");
-    int num_samples = 10000;
+    file.open("../nyu_synth_256k/val/targets.txt");
+    int num_samples = 100;
+    PoseConfig config = PoseConfig("../test.json");
 
     p_gen->Setup();
 
     for (int i = 0; i < num_samples; i++) {
-        p_gen->GeneratePose(i - 180);
+        p_gen->GeneratePose(config.GenerateParams());
         PoseGenerator::PoseSample pose_sample = p_gen->GetSample();
 
         // Testing cv::setTo to get rid of the inf testues
@@ -43,12 +45,12 @@ int main(int argc, char **argv) {
         //pose_sample.depth_buffer.convertTo(test, CV_8UC1, scale, b);
         pose_sample.depth_buffer.convertTo(test, CV_16UC1, 1000.0);
 
-        boost::filesystem::path depth_dir("../nyu_synth/train/depth/");
+        boost::filesystem::path depth_dir("../nyu_synth_256k/val/depth/");
         boost::filesystem::create_directory(depth_dir);
-        boost::filesystem::path color_dir("../nyu_synth/train/color/");
+        boost::filesystem::path color_dir("../nyu_synth_256k/val/color/");
         boost::filesystem::create_directory(color_dir);
-        boost::format depth_fmt("../nyu_synth/train/depth/%d.png");
-        boost::format color_fmt("../nyu_synth/train/color/%d.png");
+        boost::format depth_fmt("../nyu_synth_256k/val/depth/%d.png");
+        boost::format color_fmt("../nyu_synth_256k/val/color/%d.png");
         depth_fmt % i;
         color_fmt % i;
         cv::imwrite(depth_fmt.str(), test);
