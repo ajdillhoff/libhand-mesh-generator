@@ -53,7 +53,7 @@ void PoseGenerator::Setup() {
     Matrix3 proj = hand_renderer_.camera_spec().GetRotMatrix();
 }
 
-void PoseGenerator::GeneratePose(unique_ptr<PoseParameters> params) {
+void PoseGenerator::GeneratePose(unique_ptr<posegen::PoseParameters> params) {
     for (int i = 0; i < params->bend.size(); i++) {
         hand_pose_.bend(i) = params->bend[i];
         hand_pose_.side(i) = params->side[i];

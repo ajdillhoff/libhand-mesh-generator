@@ -1,0 +1,6 @@
+{
+	"prototypes": [
+		"../configs/point.json",
+		"../configs/open.json"
+	]
+}

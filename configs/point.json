@@ -1,0 +1,159 @@
+{
+	"name": "Point",
+	"angleparams": [
+		{
+			"ids": [12, 13],
+			"min": -15.0,
+			"max": 50.0,
+			"type": [1, 0],
+			"coefficients": [1.0, 0.25]
+		},
+		{
+			"ids": [14],
+			"min": -60.0,
+			"max": 0.0,
+			"type": [0],
+			"coefficients": [1.0]
+		},
+		{
+			"ids": [12],
+			"min": -25.0,
+			"max": 10.0,
+			"type": [0],
+			"coefficients": [1.0]
+		},
+		{
+			"ids": [0, 3, 6, 9],
+			"min": -20.0,
+			"max": 12.0,
+			"type": [1, 1, 1, 1],
+			"coefficients": [1.0, 0.75, -0.75, -1.0]
+		},
+		{
+			"ids": [0],
+			"min": -5.0,
+			"max": 5.0,
+			"type": [1],
+			"coefficients": [1.0]
+		},
+		{
+			"ids": [3],
+			"min": -5.0,
+			"max": 5.0,
+			"type": [1],
+			"coefficients": [0.75]
+		},
+		{
+			"ids": [6],
+			"min": -5.0,
+			"max": 5.0,
+			"type": [1],
+			"coefficients": [-0.75]
+		},
+		{
+			"ids": [9],
+			"min": -5.0,
+			"max": 5.0,
+			"type": [1],
+			"coefficients": [-1.0]
+		},
+		{
+			"ids": [0, 3, 6],
+			"min": -60.0,
+			"max": -40.0,
+			"type": [0, 0, 0],
+			"coefficients": [1.0, 1.0, 1.0]
+		},
+		{
+			"ids": [0],
+			"min": -10.0,
+			"max": 10.0,
+			"type": [0],
+			"coefficients": [1.0]
+		},
+		{
+			"ids": [3],
+			"min": -10.0,
+			"max": 10.0,
+			"type": [0],
+			"coefficients": [1.0]
+		},
+		{
+			"ids": [6],
+			"min": -10.0,
+			"max": 10.0,
+			"type": [0],
+			"coefficients": [1.0]
+		},
+		{
+			"ids": [1, 2, 4, 5, 7, 8],
+			"min": -60.0,
+			"max": -40.0,
+			"type": [0, 0, 0, 0, 0, 0],
+			"coefficients": [1.0, 0.25, 1.0, 0.25, 1.0, 0.25]
+		},
+		{
+			"ids": [1, 2],
+			"min": -10.0,
+			"max": 10.0,
+			"type": [0, 0],
+			"coefficients": [1.0, 0.25]
+		},
+		{
+			"ids": [4, 5],
+			"min": -10.0,
+			"max": 10.0,
+			"type": [0, 0],
+			"coefficients": [1.0, 0.25]
+		},
+		{
+			"ids": [7, 8],
+			"min": -10.0,
+			"max": 10.0,
+			"type": [0, 0],
+			"coefficients": [1.0, 0.25]
+		},
+		{
+			"ids": [9],
+			"min": -5.0,
+			"max": 15.0,
+			"type": [0],
+			"coefficients": [1.0]
+		},
+		{
+			"ids": [10, 11],
+			"min": -5.0,
+			"max": 5.0,
+			"type": [0, 0],
+			"coefficients": [1.0, 1.0]
+		},
+		{
+			"ids": [16],
+			"min": -45.0,
+			"max": 15.0,
+			"type": [0],
+			"coefficients": [1.0]
+		},
+		{
+			"ids": [16],
+			"min": -45.0,
+			"max": 45.0,
+			"type": [1],
+			"coefficients": [1.0]
+		},
+		{
+			"ids": [16],
+			"min": -15.0,
+			"max": 15.0,
+			"type": [2],
+			"coefficients": [1.0]
+		},
+		{
+			"ids": [15],
+			"min": -45.0,
+			"max": 45.0,
+			"type": [0],
+			"coefficients": [1.0]
+		}
+	]
+}
