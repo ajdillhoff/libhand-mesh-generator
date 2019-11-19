@@ -35,3 +35,8 @@ This is easily remedied with a symbolic link:
 ```
 sudo ln -s /usr/lib/x86_64-linux-gnu/OGRE-1.9.0 /usr/lib/OGRE
 ```
+
+# TODO
+
+-[] Add usage section.
+-[] Develop Python wrapper.
