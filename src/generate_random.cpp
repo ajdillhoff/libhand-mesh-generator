@@ -14,6 +14,7 @@ using namespace std;
 
 
 struct Args {
+    string scene_path = "scene_spec.yml";
     string config_path = "config.json";
     string output_path = "out/";
     int num_samples = 0;
@@ -22,6 +23,7 @@ struct Args {
 
 void PrintHelp() {
     cout <<
+        "-s, --scene_path: Path to 3D model's scene file.\n";
         "-c, --config_path: Path to configuration file.\n"
         "-n, --num_samples: Number of samples to generate.\n"
         "-o, --output_path: Path to save generated samples.\n";
@@ -29,11 +31,12 @@ void PrintHelp() {
 
 
 Args ProcessArgs(int argc, char** argv) {
-    const char* const short_opts = "c:n:o:";
+    const char* const short_opts = "c:n:o:s:";
     const option long_opts[] = {
         {"config_path", no_argument, nullptr, 'c'},
         {"num_samples", no_argument, nullptr, 'n'},
-        {"output_path", no_argument, nullptr, 'o'}
+        {"output_path", no_argument, nullptr, 'o'},
+        {"scene_path", no_argument, nullptr, 's'}
     };
 
     Args a = Args();
@@ -55,6 +58,9 @@ Args ProcessArgs(int argc, char** argv) {
             case 'o':
                 a.output_path = optarg;
                 break;
+            case 's':
+                a.scene_path = optarg;
+                break;
             default:
                 PrintHelp();
                 exit(1);
@@ -75,9 +81,9 @@ int main(int argc, char **argv) {
     boost::filesystem::create_directory(dir);
     file.open(a.output_path + "targets.txt");
     int num_samples = a.num_samples;
-    posegen::PoseConfig config = posegen::PoseConfig("../config.json");
+    posegen::PoseConfig config = posegen::PoseConfig(a.config_path);
 
-    p_gen->Setup();
+    p_gen->Setup(a.scene_path);
 
     for (int i = 0; i < num_samples; i++) {
         p_gen->GeneratePose(config.GenerateParams());
@@ -96,18 +102,16 @@ int main(int argc, char **argv) {
         double max_t;
         cv::minMaxLoc(pose_sample.depth_buffer, &min_t, &max_t, 0, 0, mask);
 
-        //double scale = 255 / (max - min);
-        //double b = -min * scale;
-
-        //pose_sample.depth_buffer.convertTo(test, CV_8UC1, scale, b);
         pose_sample.depth_buffer.convertTo(test, CV_16UC1, 1000.0);
 
-        boost::filesystem::path depth_dir("../nyu_synth_256k/val/depth/");
+        boost::filesystem::path depth_dir(a.output_path);
+        depth_dir /= "depth/";
         boost::filesystem::create_directory(depth_dir);
-        boost::filesystem::path color_dir("../nyu_synth_256k/val/color/");
+        boost::filesystem::path color_dir(a.output_path);
+        color_dir /= "color/";
         boost::filesystem::create_directory(color_dir);
-        boost::format depth_fmt("../nyu_synth_256k/val/depth/%d.png");
-        boost::format color_fmt("../nyu_synth_256k/val/color/%d.png");
+        boost::format depth_fmt(depth_dir.string() + "%d.png");
+        boost::format color_fmt(color_dir.string() + "%d.png");
         depth_fmt % i;
         color_fmt % i;
         cv::imwrite(depth_fmt.str(), test);
@@ -120,13 +124,6 @@ int main(int argc, char **argv) {
 
         cout << depth_fmt.str() << " written." << endl;
     }
-
-    /* string win_name = "depth_window"; */
-    /* cv::namedWindow(win_name); */
-
-    /* cv::imshow(win_name, test); */
-    /* cv::imshow(win_name, pose_sample.pixel_buffer); */
-    /* cv::waitKey(); */
 
     file.close();
 

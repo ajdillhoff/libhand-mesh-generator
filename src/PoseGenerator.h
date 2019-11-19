@@ -31,7 +31,7 @@ class PoseGenerator {
     static const int kDefaultHeight = 320;
     static constexpr float kDefaultCameraDistance = 2.0;
 
-    void Setup();
+    void Setup(string);
 
     // Method to generate random hand pose
     void GeneratePose(int);

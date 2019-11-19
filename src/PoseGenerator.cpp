@@ -31,18 +31,11 @@ PoseGenerator::PoseGenerator() {
 
 PoseGenerator::~PoseGenerator() {}
 
-void PoseGenerator::Setup() {
+void PoseGenerator::Setup(string scene_path) {
     hand_renderer_.Setup(640, 480);
 
-    // Load scene spec file
-    /* FileDialog dialog; */
-    /* dialog.SetTitle("Please select a scene spec file"); */
-    /* string file_name = dialog.Open(); */
-    //string file_name = "/home/alex/dev/projects/libhand-public/hand_model_no_wrist/rhd/scene_spec.yml";
-    string file_name = "/home/alex/dev/projects/libhand-public/nyu_synth/scene_spec.yml";
-
     // Process file
-    SceneSpec scene_spec(file_name);
+    SceneSpec scene_spec(scene_path);
 
     // Renderer loads the scene
     hand_renderer_.LoadScene(scene_spec);
