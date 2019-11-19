@@ -4,11 +4,11 @@ A data generation tool for hand pose estimation research.
 
 # Dependencies
 
--[Libhand-Public](https://github.com/jsupancic/libhand-public.git)
--Ogre 1.9.0 (TODO: Support latest version.)
--OpenCV 3.2.0
--OpenGL
--GLUT
+- [Libhand-Public](https://github.com/jsupancic/libhand-public.git)
+- Ogre 1.9.0 (TODO: Support latest version.)
+- OpenCV 3.2.0
+- OpenGL
+- GLUT
 
 # Installation
 
@@ -38,5 +38,5 @@ sudo ln -s /usr/lib/x86_64-linux-gnu/OGRE-1.9.0 /usr/lib/OGRE
 
 # TODO
 
--[] Add usage section.
--[] Develop Python wrapper.
+- [ ] Add usage section.
+- [ ] Develop Python wrapper.
