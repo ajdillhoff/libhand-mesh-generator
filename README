@@ -6,10 +6,15 @@ A data generation tool for hand pose estimation research.
 
 -[Libhand-Public](https://github.com/jsupancic/libhand-public.git)
 -Ogre 1.9.0 (TODO: Support latest version.)
+-OpenCV 3.2.0
+-OpenGL
+-GLUT
 
 # Installation
 
 ```
 mkdir build && cd build
-cmake -DLIBHAND_PATH="/path/to/libhand-public" ..
+cmake -DLIBHAND_PATH="/path/to/libhand-public" -DOPENCV_PATH="/path/to/opencv" ..
 ```
+
+If you have multiple versions of OpenCV configured on your system, you can specify the path for version 3.2 using the `OPENCV_PATH` variable. Otherwise, CMake's `find_package` will automatically detect it.
