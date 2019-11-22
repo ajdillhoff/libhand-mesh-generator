@@ -5,12 +5,16 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
+#include <chrono>
 
+#include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
 #include "opencv2/opencv.hpp"
 #include "OGRE/OgreVector3.h"
 #include "OGRE/OgreMatrix3.h"
 #include "hand_renderer.h"
 #include "scene_spec.h"
+#include "ndarray_converter.h"
 
 using namespace std;
 using namespace Ogre;
@@ -25,13 +29,32 @@ float gen_rand(float min_deg, float max_deg) {
     return deg * (M_PI / 180.0);
 }
 
+std::map<string, std::vector<double>> convert_joint_map(libhand::HandRenderer::JointPositionMap joint_position_map) {
+    std::map<string, std::vector<double>> converted_map;
+
+    for (auto const& element : joint_position_map) {
+        converted_map[element.first] = {
+            element.second[0],
+            element.second[1],
+            element.second[2]
+        };
+    }
+
+    return converted_map;
+}
+
 PoseGenerator::PoseGenerator() {
     distance_to_camera_ = kDefaultCameraDistance;
 }
 
+PoseGenerator::PoseGenerator(string scene_path, string config_path) {
+    distance_to_camera_ = kDefaultCameraDistance;
+    Setup(scene_path, config_path);
+}
+
 PoseGenerator::~PoseGenerator() {}
 
-void PoseGenerator::Setup(string scene_path) {
+void PoseGenerator::Setup(string scene_path, string config_path) {
     hand_renderer_.Setup(640, 480);
 
     // Process file
@@ -44,6 +67,8 @@ void PoseGenerator::Setup(string scene_path) {
     hand_pose_ = FullHandPose(scene_spec.num_bones());
 
     Matrix3 proj = hand_renderer_.camera_spec().GetRotMatrix();
+
+    config_ = posegen::PoseConfig(config_path);
 }
 
 void PoseGenerator::GeneratePose(unique_ptr<posegen::PoseParameters> params) {
@@ -140,25 +165,45 @@ void PoseGenerator::GeneratePose(int i) {
 
 // Returns a sample based on the currently generated pose.
 // TODO: Implement error checking
-PoseGenerator::PoseSample PoseGenerator::GetSample() {
-    // Test GetMeshVertices
-    size_t vertex_count = 0;
-    Vector3* mesh_data;
-    hand_renderer_.GetMeshVertices(vertex_count, mesh_data);
+//PoseGenerator::PoseSample PoseGenerator::GetSample() {
+unique_ptr<PoseSample> PoseGenerator::GetSample() {
+    GeneratePose(config_.GenerateParams());
 
-    // libhand uses `new` to create the mesh data, we will let `shared_ptr`
-    // handle the lifetime from here on.
-    shared_ptr<Vector3> mesh_data_(mesh_data);
+    unique_ptr<PoseSample> sample(new PoseSample());
+    sample->depth_buffer = hand_renderer_.depth_buffer_cv();
+    sample->pixel_buffer = hand_renderer_.pixel_buffer_cv();
+    libhand::HandRenderer::JointPositionMap temp;
+    hand_renderer_.walk_bones(temp);
+    sample->joint_position_map = convert_joint_map(temp);
 
-    PoseSample d = PoseSample();
-    d.mesh_data = mesh_data_;
-    d.vertex_count = vertex_count;
-    d.depth_buffer = hand_renderer_.depth_buffer_cv().clone();
-    d.pixel_buffer = hand_renderer_.pixel_buffer_cv().clone();
-    hand_renderer_.walk_bones(d.joint_position_map);
+    sample->depth_buffer.setTo(0, sample->depth_buffer == std::numeric_limits<float>::infinity());
 
-    // DEBUG
-    Vector3 c = hand_renderer_.CamPositionRelativeToHand();
+    cv::Mat test;
 
-    return d;
+    double min = 0.1;
+    double max = 8.0;
+    cv::Mat mask = sample->depth_buffer != 0;
+
+    double min_t;
+    double max_t;
+    cv::minMaxLoc(sample->depth_buffer, &min_t, &max_t, 0, 0, mask);
+
+    sample->depth_buffer.convertTo(test, CV_16UC1, 1000.0);
+    sample->depth_buffer = test;
+
+    return sample;
+}
+
+PYBIND11_MODULE(PoseGenerator, m) {
+    NDArrayConverter::init_numpy();
+    pybind11::class_<PoseSample>(m, "PoseSample")
+        .def(pybind11::init<>())
+        .def_readwrite("depth", &PoseSample::depth_buffer)
+        .def_readwrite("color", &PoseSample::pixel_buffer)
+        .def_readwrite("joints", &PoseSample::joint_position_map);
+    pybind11::class_<PoseGenerator>(m, "PoseGenerator")
+        .def(pybind11::init<>())
+        .def(pybind11::init<std::string &, std::string &>())
+        .def("Setup", &PoseGenerator::Setup)
+        .def("GetSample", &PoseGenerator::GetSample);
 }

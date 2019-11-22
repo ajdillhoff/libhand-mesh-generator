@@ -9,6 +9,7 @@ A data generation tool for hand pose estimation research.
 - OpenCV 3.2.0
 - OpenGL
 - GLUT
+- [pybind11](https://github.com/pybind/pybind11/tree/master) (install manually or through `conda`)
 
 # Installation
 
