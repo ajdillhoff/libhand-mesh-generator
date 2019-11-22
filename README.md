@@ -39,5 +39,6 @@ sudo ln -s /usr/lib/x86_64-linux-gnu/OGRE-1.9.0 /usr/lib/OGRE
 
 # TODO
 
+- [ ] Add `setup.py` for packaging.
 - [ ] Add usage section.
-- [ ] Develop Python wrapper.
+- [x] Develop Python wrapper.
