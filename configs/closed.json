@@ -73,22 +73,22 @@
 		},
 		{
 			"ids": [16],
-			"min": -45.0,
+			"min": -60.0,
 			"max": 15.0,
 			"type": [0],
 			"coefficients": [1.0]
 		},
 		{
 			"ids": [16],
-			"min": -45.0,
-			"max": 45.0,
+			"min": -60.0,
+			"max": 60.0,
 			"type": [1],
 			"coefficients": [1.0]
 		},
 		{
 			"ids": [16],
-			"min": -15.0,
-			"max": 15.0,
+			"min": -60.0,
+			"max": 60.0,
 			"type": [2],
 			"coefficients": [1.0]
 		},
