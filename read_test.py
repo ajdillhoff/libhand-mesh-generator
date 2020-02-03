@@ -8,10 +8,16 @@ from PIL import Image
 
 def main():
     annotations = pd.read_pickle("./dataset/train/annotations.pkl")
-    for i, v in enumerate(annotations[0]):
-        print("{}: ({}, {}, {})".format(v, annotations[0][v][0], annotations[0][v][1], annotations[0][v][2]))
+    num_samples = len(annotations)
 
-    img_file = "./dataset/train/depth/depth_1.png"
+    idx = np.random.randint(num_samples)
+
+    for i, v in enumerate(annotations[idx]):
+        print("{}: ({}, {}, {})".format(v, annotations[idx][v][0],
+                                        annotations[idx][v][1],
+                                        annotations[idx][v][2]))
+
+    img_file = "./dataset/train/depth/depth_{}.png".format(idx)
     img_handle = Image.open(img_file)
     img = np.array(img_handle)
 
