@@ -13,7 +13,7 @@ import PoseGenerator
 
 
 def main():
-    num_samples = 1024
+    num_samples = 2000000
     data_path = "./dataset/train/"
     scene_path = "/home/alex/dev/projects/libhand-public/nyu_synth/scene_spec.yml"
     config_path = "config.json"
