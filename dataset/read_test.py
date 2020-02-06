@@ -6,7 +6,6 @@ import numpy as np
 from PIL import Image
 
 
-
 def get_num_samples(path):
     with open(path, mode='rb') as file:
         try:
@@ -35,7 +34,7 @@ def load_annotation(path, idx):
 
 def main():
     # The number of samples is written to the beginning of the file.
-    path = "./dataset/train/annotations.pkl"
+    path = "./train/annotations.pkl"
     num_samples = get_num_samples(path)
 
     idx = np.random.randint(num_samples)
@@ -46,7 +45,7 @@ def main():
                                         anno[v][1],
                                         anno[v][2]))
 
-    img_file = "./dataset/train/depth/depth_{}.png".format(idx)
+    img_file = "./train/depth/depth_{}.png".format(idx)
     img_handle = Image.open(img_file)
     img = np.array(img_handle)
 
@@ -58,3 +57,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

@@ -13,22 +13,20 @@ import PoseGenerator
 
 
 def main():
-    num_samples = 1024
+    num_samples = 2000000
     data_path = "./dataset/train/"
     scene_path = "/home/alex/dev/projects/libhand-public/nyu_synth/scene_spec.yml"
     config_path = "config.json"
     pose_gen = PoseGenerator.PoseGenerator(scene_path, config_path)
 
-    sample = pose_gen.GetSample()
-
     f = open(os.path.join(data_path, "annotations.pkl"), "wb")
-    joints = []
+    pickle.dump(num_samples, f)
     for i in trange(num_samples):
+        sample = pose_gen.GetSample()
         filename = "depth/depth_{}.png".format(i)
         img = Image.fromarray(sample.depth)
         img.save(os.path.join(data_path, filename))
-        joints.append(sample.joints)
-    pickle.dump(joints, f)
+        pickle.dump(sample.joints, f)
     f.close()
 
 

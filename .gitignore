@@ -39,3 +39,6 @@ samples
 build
 train
 test
+
+*.pkl
+*.tar*
