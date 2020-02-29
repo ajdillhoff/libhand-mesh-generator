@@ -1,5 +1,5 @@
 {
 	"prototypes": [
-		"/home/alex/dev/projects/libhand-mesh-generator/configs/open.json"
+		"/home/alex/dev/projects/libhand-mesh-generator/configs/open-single-viewpoint.json"
 	]
 }
