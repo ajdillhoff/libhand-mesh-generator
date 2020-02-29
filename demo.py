@@ -11,7 +11,7 @@ import PoseGenerator
 
 def main():
     scene_path = "/home/alex/dev/projects/libhand-public/nyu_synth/scene_spec.yml"
-    config_path = "config.json"
+    config_path = "all-no-body-rotation.json"
     pose_gen = PoseGenerator.PoseGenerator(scene_path, config_path)
     sample = pose_gen.GetSample()
 

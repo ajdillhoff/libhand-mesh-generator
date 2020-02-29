@@ -1,0 +1,10 @@
+{
+	"prototypes": [
+		"/home/alex/dev/projects/libhand-mesh-generator/configs/point-single-viewpoint.json",
+		"/home/alex/dev/projects/libhand-mesh-generator/configs/open-single-viewpoint.json",
+		"/home/alex/dev/projects/libhand-mesh-generator/configs/flat-single-viewpoint.json",
+		"/home/alex/dev/projects/libhand-mesh-generator/configs/halfopen-single-viewpoint.json",
+		"/home/alex/dev/projects/libhand-mesh-generator/configs/closed-single-viewpoint.json",
+		"/home/alex/dev/projects/libhand-mesh-generator/configs/pinching-single-viewpoint.json"
+	]
+}
