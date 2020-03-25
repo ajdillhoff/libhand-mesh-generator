@@ -44,6 +44,8 @@ pybind11_add_module(PoseGenerator
     PoseGenerator.cpp
     PoseConfig.cpp
     PosePrototype.cpp
+    ShapeConfig.cpp
+    ShapePrototype.cpp
     ndarray_converter.cpp
 )
 

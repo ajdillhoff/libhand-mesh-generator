@@ -35,7 +35,7 @@ def load_annotation(path, idx):
 
 def main():
     # The number of samples is written to the beginning of the file.
-    path = "./dataset/train/annotations.pkl"
+    path = "/home/alex/Data/nyu_synth/val/annotations.pkl"
     num_samples = get_num_samples(path)
 
     idx = np.random.randint(num_samples)
@@ -46,7 +46,7 @@ def main():
                                         anno[v][1],
                                         anno[v][2]))
 
-    img_file = "./dataset/train/depth/depth_{}.png".format(idx)
+    img_file = "/home/alex/Data/nyu_synth/val/depth/depth_{}.png".format(idx)
     img_handle = Image.open(img_file)
     img = np.array(img_handle)
 

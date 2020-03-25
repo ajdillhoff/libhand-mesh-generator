@@ -11,6 +11,8 @@
 
 #include "PoseConfig.h"
 #include "PosePrototype.h"
+#include "ShapeConfig.h"
+#include "ShapePrototype.h"
 
 
 struct PoseSample {
@@ -26,18 +28,18 @@ class PoseGenerator {
   public:
 
     PoseGenerator();
-    PoseGenerator(string, string);
+    PoseGenerator(string, string, string);
     ~PoseGenerator();
 
     static const int kDefaultWidth = 320;
     static const int kDefaultHeight = 320;
     static constexpr float kDefaultCameraDistance = 2.0;
 
-    void Setup(string, string);
+    void Setup(string, string, string);
 
     // Method to generate random hand pose
     void GeneratePose(int);
-    void GeneratePose(unique_ptr<posegen::PoseParameters>);
+    void GeneratePose(unique_ptr<posegen::PoseParameters>, unique_ptr<posegen::ShapeParameters>);
 
     // Get sample based on the currently generated pose
     unique_ptr<PoseSample> GetSample();
@@ -58,7 +60,8 @@ class PoseGenerator {
     std::shared_ptr<Ogre::Vector3> mesh_data_;
     libhand::FullHandPose hand_pose_;
     std::mt19937 rng_{ (std::random_device())() };
-    posegen::PoseConfig config_;
+    posegen::PoseConfig pose_config_;
+    posegen::ShapeConfig shape_config_;
 };
 
 #endif  // POSE_GENERATOR_H_

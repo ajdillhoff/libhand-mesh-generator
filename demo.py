@@ -11,13 +11,23 @@ import PoseGenerator
 
 def main():
     scene_path = "/home/alex/dev/projects/libhand-public/nyu_synth/scene_spec.yml"
-    config_path = "all-no-body-rotation.json"
-    pose_gen = PoseGenerator.PoseGenerator(scene_path, config_path)
-    sample = pose_gen.GetSample()
+    pose_config_path = "configs/pose/open-test-config.json"
+    shape_config_path = "configs/shape/default.json"
+    pose_gen = PoseGenerator.PoseGenerator(scene_path, pose_config_path, shape_config_path)
+    s1 = pose_gen.GetSample()
+    s2 = pose_gen.GetSample()
+    s3 = pose_gen.GetSample()
+    s4 = pose_gen.GetSample()
 
     fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.imshow(sample.depth)
+    ax1 = fig.add_subplot(221)
+    ax1.imshow(s1.depth)
+    ax2 = fig.add_subplot(222)
+    ax2.imshow(s2.depth)
+    ax3 = fig.add_subplot(223)
+    ax3.imshow(s3.depth)
+    ax4 = fig.add_subplot(224)
+    ax4.imshow(s4.depth)
     plt.show()
 
 

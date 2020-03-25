@@ -47,14 +47,14 @@ PoseGenerator::PoseGenerator() {
     distance_to_camera_ = kDefaultCameraDistance;
 }
 
-PoseGenerator::PoseGenerator(string scene_path, string config_path) {
+PoseGenerator::PoseGenerator(string scene_path, string pose_config_path, string shape_config_path) {
     distance_to_camera_ = kDefaultCameraDistance;
-    Setup(scene_path, config_path);
+    Setup(scene_path, pose_config_path, shape_config_path);
 }
 
 PoseGenerator::~PoseGenerator() {}
 
-void PoseGenerator::Setup(string scene_path, string config_path) {
+void PoseGenerator::Setup(string scene_path, string pose_config_path, string shape_config_path) {
     hand_renderer_.Setup(640, 480);
 
     // Process file
@@ -68,21 +68,28 @@ void PoseGenerator::Setup(string scene_path, string config_path) {
 
     Matrix3 proj = hand_renderer_.camera_spec().GetRotMatrix();
 
-    config_ = posegen::PoseConfig(config_path);
+    pose_config_ = posegen::PoseConfig(pose_config_path);
+    shape_config_ = posegen::ShapeConfig(shape_config_path);
 }
 
-void PoseGenerator::GeneratePose(unique_ptr<posegen::PoseParameters> params) {
-    for (int i = 0; i < params->bend.size(); i++) {
-        hand_pose_.bend(i) = params->bend[i];
-        hand_pose_.side(i) = params->side[i];
-        hand_pose_.twist(i) = params->twist[i];
+void PoseGenerator::GeneratePose(unique_ptr<posegen::PoseParameters> pose_params, unique_ptr<posegen::ShapeParameters> shape_params) {
+    for (int i = 0; i < pose_params->bend.size(); i++) {
+        hand_pose_.bend(i) = pose_params->bend[i];
+        hand_pose_.side(i) = pose_params->side[i];
+        hand_pose_.twist(i) = pose_params->twist[i];
+    }
+
+    for (int i = 0; i < shape_params->swell.size(); i++) {
+        hand_pose_.swelling(i) = shape_params->swell[i];
+        hand_pose_.dilation(i) = shape_params->dilate[i];
+        hand_pose_.elongation(i) = shape_params->elongate[i];
     }
 
     // Apply the hand pose
     hand_renderer_.SetHandPose(hand_pose_);
 
     // Position test
-    Ogre::Vector3 v(params->hand_offset[0], params->hand_offset[1], params->hand_offset[2]);
+    Ogre::Vector3 v(pose_params->hand_offset[0], pose_params->hand_offset[1], pose_params->hand_offset[2]);
     hand_renderer_.SetHandPosition(v);
 
     // Render the hand
@@ -167,7 +174,7 @@ void PoseGenerator::GeneratePose(int i) {
 // TODO: Implement error checking
 //PoseGenerator::PoseSample PoseGenerator::GetSample() {
 unique_ptr<PoseSample> PoseGenerator::GetSample() {
-    GeneratePose(config_.GenerateParams());
+    GeneratePose(pose_config_.GenerateParams(), shape_config_.GenerateParams());
 
     unique_ptr<PoseSample> sample(new PoseSample());
     sample->depth_buffer = hand_renderer_.depth_buffer_cv();
@@ -203,7 +210,7 @@ PYBIND11_MODULE(PoseGenerator, m) {
         .def_readwrite("joints", &PoseSample::joint_position_map);
     pybind11::class_<PoseGenerator>(m, "PoseGenerator")
         .def(pybind11::init<>())
-        .def(pybind11::init<std::string &, std::string &>())
+        .def(pybind11::init<std::string &, std::string &, std::string &>())
         .def("Setup", &PoseGenerator::Setup)
         .def("GetSample", &PoseGenerator::GetSample);
 }

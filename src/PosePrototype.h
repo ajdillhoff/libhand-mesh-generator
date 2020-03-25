@@ -38,9 +38,9 @@ struct PoseParameters {
     vector<float> hand_offset;
 
     PoseParameters() {
-        bend = vector<float>(17, 0.0);
-        side = vector<float>(17, 0.0);
-        twist = vector<float>(17, 0.0);
+        bend = vector<float>(21, 0.0);
+        side = vector<float>(21, 0.0);
+        twist = vector<float>(21, 0.0);
         hand_offset = vector<float>(3, 0.0);
     }
 };
