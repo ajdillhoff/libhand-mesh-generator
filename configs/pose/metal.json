@@ -1,16 +1,16 @@
 {
-	"name": "Open",
+	"name": "Metal",
 	"angleparams": [
 		{
 			"ids": [2, 3],
-			"min": -15.0,
-			"max": 50.0,
+			"min": 0.0,
+			"max": 30.0,
 			"type": [1, 0],
 			"coefficients": [1.0, 0.25]
 		},
 		{
 			"ids": [4],
-			"min": -60.0,
+			"min": -40.0,
 			"max": 0.0,
 			"type": [0],
 			"coefficients": [1.0]
@@ -58,11 +58,46 @@
 			"coefficients": [-1.0]
 		},
 		{
-			"ids": [6, 10, 14, 18],
-			"min": -10.0,
-			"max": 10.0,
+			"ids": [10, 14],
+			"min": -70.0,
+			"max": -60.0,
+			"type": [0, 0],
+			"coefficients": [1.0, 1.0]
+		},
+		{
+			"ids": [11, 12, 15, 16],
+			"min": -80.0,
+			"max": -45.0,
 			"type": [0, 0, 0, 0],
-			"coefficients": [1.0, 1.0, 1.0, 1.0]
+			"coefficients": [1.0, 0.33, 1.0, 0.33]
+		},
+		{
+			"ids": [0],
+			"min": -60.0,
+			"max": 15.0,
+			"type": [0],
+			"coefficients": [1.0]
+		},
+		{
+			"ids": [0],
+			"min": -60.0,
+			"max": 60.0,
+			"type": [1],
+			"coefficients": [1.0]
+		},
+		{
+			"ids": [0],
+			"min": -60.0,
+			"max": 60.0,
+			"type": [2],
+			"coefficients": [1.0]
+		},
+		{
+			"ids": [1],
+			"min": -45.0,
+			"max": 45.0,
+			"type": [0],
+			"coefficients": [1.0]
 		}
 	]
 }

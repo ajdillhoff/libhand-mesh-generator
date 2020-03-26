@@ -2,91 +2,91 @@
 	"name": "Open",
 	"angleparams": [
 		{
-			"ids": [12, 13],
+			"ids": [2, 3],
 			"min": -15.0,
 			"max": 50.0,
 			"type": [1, 0],
 			"coefficients": [1.0, 0.25]
 		},
 		{
-			"ids": [14],
+			"ids": [4],
 			"min": -60.0,
 			"max": 0.0,
 			"type": [0],
 			"coefficients": [1.0]
 		},
 		{
-			"ids": [12],
+			"ids": [2],
 			"min": -25.0,
 			"max": 10.0,
 			"type": [0],
 			"coefficients": [1.0]
 		},
 		{
-			"ids": [0, 3, 6, 9],
+			"ids": [6, 10, 14, 18],
 			"min": -20.0,
 			"max": 12.0,
 			"type": [1, 1, 1, 1],
 			"coefficients": [1.0, 0.75, -0.75, -1.0]
 		},
 		{
-			"ids": [0],
+			"ids": [6],
 			"min": -5.0,
 			"max": 5.0,
 			"type": [1],
 			"coefficients": [1.0]
 		},
 		{
-			"ids": [3],
+			"ids": [10],
 			"min": -5.0,
 			"max": 5.0,
 			"type": [1],
 			"coefficients": [0.75]
 		},
 		{
-			"ids": [6],
+			"ids": [14],
 			"min": -5.0,
 			"max": 5.0,
 			"type": [1],
 			"coefficients": [-0.75]
 		},
 		{
-			"ids": [9],
+			"ids": [18],
 			"min": -5.0,
 			"max": 5.0,
 			"type": [1],
 			"coefficients": [-1.0]
 		},
 		{
-			"ids": [0, 3, 6, 9],
+			"ids": [6, 10, 14, 18],
 			"min": -10.0,
 			"max": 10.0,
 			"type": [0, 0, 0, 0],
 			"coefficients": [1.0, 1.0, 1.0, 1.0]
 		},
 		{
-			"ids": [16],
+			"ids": [0],
 			"min": -60.0,
 			"max": 15.0,
 			"type": [0],
 			"coefficients": [1.0]
 		},
 		{
-			"ids": [16],
+			"ids": [0],
 			"min": -60.0,
 			"max": 60.0,
 			"type": [1],
 			"coefficients": [1.0]
 		},
 		{
-			"ids": [16],
+			"ids": [0],
 			"min": -60.0,
 			"max": 60.0,
 			"type": [2],
 			"coefficients": [1.0]
 		},
 		{
-			"ids": [15],
+			"ids": [1],
 			"min": -45.0,
 			"max": 45.0,
 			"type": [0],

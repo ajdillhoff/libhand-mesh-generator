@@ -11,23 +11,21 @@ import PoseGenerator
 
 def main():
     scene_path = "/home/alex/dev/projects/libhand-public/nyu_synth/scene_spec.yml"
-    pose_config_path = "configs/pose/open-test-config.json"
-    shape_config_path = "configs/shape/default.json"
+    pose_config_path = "configs/pose/train.json"
+    shape_config_path = "configs/shape/train.json"
     pose_gen = PoseGenerator.PoseGenerator(scene_path, pose_config_path, shape_config_path)
-    s1 = pose_gen.GetSample()
-    s2 = pose_gen.GetSample()
-    s3 = pose_gen.GetSample()
-    s4 = pose_gen.GetSample()
+    rows = 4
+    columns = 4
 
-    fig = plt.figure()
-    ax1 = fig.add_subplot(221)
-    ax1.imshow(s1.depth)
-    ax2 = fig.add_subplot(222)
-    ax2.imshow(s2.depth)
-    ax3 = fig.add_subplot(223)
-    ax3.imshow(s3.depth)
-    ax4 = fig.add_subplot(224)
-    ax4.imshow(s4.depth)
+    fig = plt.figure(figsize=(12, 9))
+    for i in range(0, rows * columns):
+        sample = pose_gen.GetSample()
+        ax = fig.add_subplot(rows, columns, i+1)
+        ax.set_xticklabels([])
+        ax.set_yticklabels([])
+        plt.axis('off')
+        ax.imshow(sample.depth)
+    plt.subplots_adjust(wspace=0, hspace=0)
     plt.show()
 
 

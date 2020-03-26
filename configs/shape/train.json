@@ -1,5 +1,6 @@
 {
 	"prototypes": [
+		"/home/alex/dev/projects/libhand-mesh-generator/configs/shape/p0.json",
 		"/home/alex/dev/projects/libhand-mesh-generator/configs/shape/p1.json",
 		"/home/alex/dev/projects/libhand-mesh-generator/configs/shape/p2.json"
 	]
