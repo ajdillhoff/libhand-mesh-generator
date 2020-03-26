@@ -14,11 +14,11 @@ import PoseGenerator
 
 
 def main():
-    num_samples = 5000
-    data_path = "./nyu_synth/test/"
+    num_samples = 10000
+    data_path = "./nyu_synth/val/"
     scene_path = "/home/alex/dev/projects/libhand-public/nyu_synth/scene_spec.yml"
-    pose_config_path = "configs/pose/default.json"
-    shape_config_path = "configs/shape/default.json"
+    pose_config_path = "configs/pose/train.json"
+    shape_config_path = "configs/shape/train.json"
     pose_gen = PoseGenerator.PoseGenerator(scene_path, pose_config_path, shape_config_path)
 
     # Create directory
