@@ -46,9 +46,9 @@ struct PoseParameters {
 };
 
 struct PosParam {
-    vector<int> joints;
-    vector<float> min_pos;
-    vector<float> max_pos;
+    vector<float> x_range;
+    vector<float> y_range;
+    vector<float> z_range;
 };
 
 template <typename T>
@@ -83,6 +83,7 @@ class PosePrototype {
   private:
     string name_;
     vector<AngleParam> rotations_;
+    PosParam hand_offset_;
 };
 }
 

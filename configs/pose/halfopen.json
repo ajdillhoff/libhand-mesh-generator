@@ -99,5 +99,10 @@
 			"type": [0],
 			"coefficients": [1.0]
 		}
-	]
+	],
+    "hand_offset": {
+        "x_range": [-0.15, 0.15],
+        "y_range": [-0.1, 0.1],
+        "z_range": [-0.4, -0.15]
+    }
 }

@@ -1,11 +1,5 @@
 {
 	"prototypes": [
-		"/home/alex/dev/projects/libhand-mesh-generator/configs/pose/point.json",
-        "/home/alex/dev/projects/libhand-mesh-generator/configs/pose/open.json",
-        "/home/alex/dev/projects/libhand-mesh-generator/configs/pose/flat.json",
-        "/home/alex/dev/projects/libhand-mesh-generator/configs/pose/halfopen.json",
-        "/home/alex/dev/projects/libhand-mesh-generator/configs/pose/closed.json",
-        "/home/alex/dev/projects/libhand-mesh-generator/configs/pose/pinching.json",
-        "/home/alex/dev/projects/libhand-mesh-generator/configs/pose/metal.json"
+        "/home/alex/dev/projects/libhand-mesh-generator/configs/pose/open.json"
 	]
 }

@@ -18,7 +18,6 @@
 struct PoseSample {
     cv::Mat depth_buffer;
     cv::Mat pixel_buffer;
-    //libhand::HandRenderer::JointPositionMap joint_position_map;
     std::map<std::string, std::vector<double>> joint_position_map;
 };
 
@@ -38,7 +37,6 @@ class PoseGenerator {
     void Setup(string, string, string);
 
     // Method to generate random hand pose
-    void GeneratePose(int);
     void GeneratePose(unique_ptr<posegen::PoseParameters>, unique_ptr<posegen::ShapeParameters>);
 
     // Get sample based on the currently generated pose
