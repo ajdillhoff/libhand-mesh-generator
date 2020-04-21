@@ -66,36 +66,43 @@
 		},
 		{
 			"ids": [0],
-			"min": -60.0,
+			"min": -15.0,
 			"max": 15.0,
 			"type": [0],
 			"coefficients": [1.0]
 		},
 		{
 			"ids": [0],
-			"min": -60.0,
-			"max": 60.0,
+			"min": -15.0,
+			"max": 15.0,
 			"type": [1],
 			"coefficients": [1.0]
 		},
 		{
 			"ids": [0],
-			"min": -60.0,
-			"max": 60.0,
+			"min": -15.0,
+			"max": 15.0,
 			"type": [2],
 			"coefficients": [1.0]
 		},
 		{
 			"ids": [1],
 			"min": -45.0,
-			"max": 45.0,
+			"max": 25.0,
 			"type": [0],
+			"coefficients": [1.0]
+		},
+		{
+			"ids": [1],
+			"min": -30.0,
+			"max": 30.0,
+			"type": [1],
 			"coefficients": [1.0]
 		}
 	],
     "hand_offset": {
         "x_range": [-0.15, 0.15],
         "y_range": [-0.1, 0.1],
-        "z_range": [-0.4, -0.15]
+        "z_range": [-0.4, 0.0]
     }
 }

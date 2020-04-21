@@ -129,30 +129,37 @@
 		},
 		{
 			"ids": [0],
-			"min": -45.0,
+			"min": -15.0,
 			"max": 15.0,
 			"type": [0],
 			"coefficients": [1.0]
 		},
 		{
 			"ids": [0],
-			"min": -45.0,
-			"max": 45.0,
+			"min": -15.0,
+			"max": 15.0,
 			"type": [1],
 			"coefficients": [1.0]
 		},
 		{
 			"ids": [0],
-			"min": -45.0,
-			"max": 45.0,
+			"min": -15.0,
+			"max": 15.0,
 			"type": [2],
 			"coefficients": [1.0]
 		},
 		{
 			"ids": [1],
 			"min": -45.0,
-			"max": 45.0,
+			"max": 25.0,
 			"type": [0],
+			"coefficients": [1.0]
+		},
+		{
+			"ids": [1],
+			"min": -30.0,
+			"max": 30.0,
+			"type": [1],
 			"coefficients": [1.0]
 		}
 	],
