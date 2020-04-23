@@ -11,7 +11,7 @@ import PoseGenerator
 
 def main():
     scene_path = "/home/alex/dev/projects/libhand-public/nyu_synth/scene_spec.yml"
-    pose_config_path = "configs/pose/train.json"
+    pose_config_path = "configs/pose/test.json"
     shape_config_path = "configs/shape/train.json"
     pose_gen = PoseGenerator.PoseGenerator(scene_path, pose_config_path, shape_config_path)
     rows = 4
